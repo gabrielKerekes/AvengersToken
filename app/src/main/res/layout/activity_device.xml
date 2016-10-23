@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg"
+    tools:context="com.avengers.avengerstoken.DeviceActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Username"
+        android:id="@+id/textName"
+        android:layout_marginTop="57dp"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textPass"
+        android:layout_alignStart="@+id/textPass" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginTop="5dp"
+        android:id="@+id/unameTttttt"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_below="@+id/textName"
+        android:layout_alignLeft="@+id/pwdT"
+        android:layout_alignStart="@+id/pwdT"
+        android:background="@drawable/edittext_style"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Password"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textPass"
+        android:layout_below="@+id/unameTttttt"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
+        android:id="@+id/pwdT"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textPass"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edittext_style" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PIN"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/pwdT"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/pinT"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@drawable/edittext_style"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/pwdT"
+        android:layout_alignStart="@+id/pwdT" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:id="@+id/loginButt"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"
+        android:nestedScrollingEnabled="false"
+        android:layout_below="@+id/pinT"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+</RelativeLayout>

@@ -1,0 +1,167 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg"
+    tools:context="com.example.avengerstoken.GridCard" >
+
+    <Button
+        android:id="@+id/viewgridcard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="View  All Grid Codes"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"/>
+
+    <TextView
+        android:id="@+id/RegIDName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewgridcard"
+        android:layout_centerHorizontal="true"
+        android:text="Enter position" />
+
+    <TextView
+        android:id="@+id/viewNumber"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/plusNumber"
+        android:layout_alignTop="@+id/plusNumber"
+        android:layout_toLeftOf="@+id/plusNumber"
+        android:layout_toRightOf="@+id/minusNumber"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/plusNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/viewgridcard"
+        android:layout_alignTop="@+id/minusNumber"
+        android:text="+"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"/>
+
+    <Button
+        android:id="@+id/minusNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/RegIDName"
+        android:text="-"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"/>
+
+    <Button
+        android:id="@+id/plusLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/minusLetter"
+        android:layout_alignBottom="@+id/minusLetter"
+        android:layout_alignParentRight="true"
+        android:text="+"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"/>
+
+    <TextView
+        android:id="@+id/viewLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/plusLetter"
+        android:layout_alignTop="@+id/plusLetter"
+        android:layout_toLeftOf="@+id/plusLetter"
+        android:layout_toRightOf="@+id/minusLetter"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="A"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/minusLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/minusNumber"
+        android:layout_below="@+id/minusNumber"
+        android:text="-"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"/>
+
+    <Button
+        android:id="@+id/viewToken"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="View Grid Code"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"
+        android:layout_below="@+id/viewLetter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textViewToken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewToken"
+        android:layout_alignRight="@+id/plusLetter"
+        android:layout_alignTop="@+id/viewToken"
+        android:gravity="center_horizontal|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_toEndOf="@+id/viewToken"
+        android:layout_toRightOf="@+id/viewToken"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c"/>
+
+    <TextView
+        android:id="@+id/viewTokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/quit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/viewToken"
+        android:gravity="center_horizontal|top"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#31535c" />
+
+    <Button
+        android:id="@+id/quit"
+        android:text="Back"
+        android:onClick="quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/RegIDName"
+        android:layout_alignEnd="@+id/RegIDName" />
+
+</RelativeLayout>
