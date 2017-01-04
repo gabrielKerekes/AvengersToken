@@ -4,7 +4,7 @@ public class Globals
 {
     public static final String TAG = "GCM DEMO";
 
-    public static final String GCM_SENDER_ID = "525762356255";//"438094875386";
+    public static final String GCM_SENDER_ID = "214701042194";//"525762356255";//"438094875386";
     
     public static final String PREFS_NAME = "GCM_DEMO";
     public static final String PREFS_PROPERTY_REG_ID = "registration_id";

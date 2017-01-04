@@ -29,6 +29,19 @@
         android:background="@drawable/button_style"/>
 
     <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set service IP"
+        android:id="@+id/setServiceIpButton"
+        android:layout_above="@+id/exit"
+        android:layout_centerHorizontal="true"
+        android:onClick="startSetServiceIpActivity"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exit"

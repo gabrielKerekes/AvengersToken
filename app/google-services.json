@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "214701042194",
+    "firebase_url": "https://timovyprojekt-148010.firebaseio.com",
+    "project_id": "timovyprojekt-148010",
+    "storage_bucket": "timovyprojekt-148010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214701042194:android:0720919db5564e39",
+        "android_client_info": {
+          "package_name": "com.avengers.avengerstoken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214701042194-3jgv0dljf50r4qdgcg407to7ta59tig1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIzvxtU7WDu4o9SPIdD-vbUcnlSql70Z8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

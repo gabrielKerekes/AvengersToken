@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity{
     SharedPreferences sharedPreferences;
     Button devSynchButt;
     Button regButt;
+    Button setServiceIpButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity{
 
         devSynchButt = (Button) findViewById(R.id.onlineToken);
         regButt = (Button) findViewById(R.id.buttDevOnly);
+
+        setServiceIpButton = (Button) findViewById(R.id.setServiceIpButton);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         String reg_usr = sharedPreferences.getString("uname",null);
@@ -101,6 +107,12 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    public void startSetServiceIpActivity(View view)
+    {
+        Intent setServiceIpActivity = new Intent(MainActivity.this, SetServiceIpActivity.class);
+        MainActivity.this.startActivity(setServiceIpActivity);
+    }
+
     public void startDeviceActivity(View view)
     {
         if(isOnline()) {
@@ -149,5 +161,29 @@ public class MainActivity extends AppCompatActivity{
                 cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
+
+    private String getRegistrationId(Context context){
+        final SharedPreferences prefs = getGcmPreferences(context);
+        String str = prefs.getString(Globals.PREFS_PROPERTY_REG_ID, "12345");
+
+        return str;
+    }
+
+    private SharedPreferences getGcmPreferences(Context context){
+        return getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    private static int getAppVersion(Context context){
+        try
+        {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
 	
 }

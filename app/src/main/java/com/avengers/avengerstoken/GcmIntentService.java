@@ -38,9 +38,9 @@ public class GcmIntentService extends IntentService {
              * not interested in, or that you don't recognize.
              */
             if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString(),"");
+                sendNotification("Send error: " + extras.toString(),"", 0);
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " + extras.toString(),"");
+                sendNotification("Deleted messages on server: " + extras.toString(),"", 0);
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 
@@ -49,7 +49,16 @@ public class GcmIntentService extends IntentService {
 
                 String[] in_data = extras.getString("message").split("=");
 
-                sendNotification(in_data[0],in_data[1]);
+                // if added for (GABO) backward compatibility - can be removed in the future
+                if (in_data.length == 2)
+                {
+                    sendNotification(in_data[0], in_data[1], -1);
+                }
+                else
+                {
+                    sendNotification(in_data[0], in_data[1], Integer.parseInt(in_data[2]));
+                }
+
                 Log.i(TAG,extras.toString());
             }
         }
@@ -60,13 +69,14 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg, String counter) {
+    private void sendNotification(String msg, String counter, int amount) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent intent = new Intent(this,OnlineToken2.class);
         intent.putExtra("msg", msg);
         intent.putExtra("mCounter",counter);
+        intent.putExtra("amount", amount);
 
         PendingIntent contentIntent =  PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -78,7 +88,7 @@ public class GcmIntentService extends IntentService {
                         .setContentTitle("Avangers Token")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
-                        .setContentText(msg);
+                        .setContentText(msg + " " + amount);
 
         mBuilder.setAutoCancel(true);
 

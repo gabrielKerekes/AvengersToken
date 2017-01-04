@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -68,6 +69,8 @@ public class OnlineToken2 extends AppCompatActivity {
     String msg = null;
     String counter = null;
 
+    int amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +90,14 @@ public class OnlineToken2 extends AppCompatActivity {
 
         try
         {
+            // todo: GABO - extra keys to string
             Intent intent = getIntent();
-            msg = intent.getExtras().getString("msg");
-            counter = intent.getExtras().getString("mCounter");
-            msgView.setText(msg);
+            Bundle extras = intent.getExtras();
+            msg = extras.getString("msg");
+            counter = extras.getString("mCounter");
+            amount = extras.getInt("amount");
+
+            msgView.setText(msg + " - " + amount);
 
         }catch (Exception e){ }
 
@@ -150,7 +157,7 @@ public class OnlineToken2 extends AppCompatActivity {
         ocraMsg = ocra.generateOCRA("OCRA-1:HOTP-SHA1-6:QN08", imei, msg);
 
         if (ocraMsg != null || ocraMsg.length() > 0) {
-            sendMessage(uname,answ,or_mess,ocraMsg);
+            sendMessage(uname, answ, or_mess, ocraMsg, amount);
             Log.e("TAG", "ocra send " + ocraMsg);
         } else Log.e("TAG", "ocra string je nulovy");
         finish();
@@ -238,7 +245,7 @@ public class OnlineToken2 extends AppCompatActivity {
         return true;
     }
 
-    private void sendMessage(String uname, String answer, String or_msg, String ocra)
+    private void sendMessage(String uname, String answer, String or_msg, String ocra, int amount)
     {
         if(regid == null || regid.equals(""))
         {
@@ -258,6 +265,7 @@ public class OnlineToken2 extends AppCompatActivity {
                     String answer = params[1];
                     String message = params[2];
                     String ocra = params[3];
+                    String amount = params[4];
 
                     JSONObject data = new JSONObject();
 
@@ -266,8 +274,10 @@ public class OnlineToken2 extends AppCompatActivity {
                     data.put("answer", answer);
                     data.put("ocra", ocra);
                     data.put("counter", counter);
+                    data.put("amount", amount);
 
-                    HttpsURLConnection urlConnection = null;
+                    //HttpsURLConnection urlConnection = null;
+                    HttpURLConnection urlConnection = null;
 
                     try {
                         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
@@ -288,13 +298,15 @@ public class OnlineToken2 extends AppCompatActivity {
 
                         SSLContext sc = SSLContext.getInstance("TLS");
                         sc.init(null, trustAllCerts, new java.security.SecureRandom());
-                        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-                        HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
+                        //HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+                        //HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
 
-                        URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/confTrans");
+                        //URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/confTrans");
+                        URL url = new URL(ServiceIp.GetIp(context) + "/confTrans");
 
                         //read data
-                        urlConnection = (HttpsURLConnection)url.openConnection();
+                        //urlConnection = (HttpsURLConnection)url.openConnection();
+                        urlConnection = (HttpURLConnection)url.openConnection();
                         urlConnection.setRequestMethod("POST");
                         urlConnection.setRequestProperty("Content-Type", "application/json");
 
@@ -328,7 +340,7 @@ public class OnlineToken2 extends AppCompatActivity {
             {
                 evaluateResponse(responseCode);
             }
-        }.execute(uname,answer,or_msg,ocra);
+        }.execute(uname,answer,or_msg,ocra, amount + "");
     }
 
     private void evaluateResponse(int resp){

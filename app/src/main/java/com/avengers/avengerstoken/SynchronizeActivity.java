@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 
@@ -112,8 +113,6 @@ public class SynchronizeActivity extends AppCompatActivity {
                         HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
                         HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
 
-                        HttpsURLConnection urlConnection = null;
-
                         regid = gcm.register(Globals.GCM_SENDER_ID);
                         storeRegistrationId(context, regid);
 
@@ -124,11 +123,19 @@ public class SynchronizeActivity extends AppCompatActivity {
                             imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
                         }
 
+                        String[] regidSplit = regid.split(":");
+                        if (regidSplit.length > 1)
+                            regid = regidSplit[1];
+
                         String data = uname+":"+pwd+":"+regid+":"+imei;
 
-                        URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/synchronizeDev?data="+data);
+                        //URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/synchronizeDev?data="+data);
+                        URL url = new URL(ServiceIp.GetIp(context) + "/synchronizeDev?data="+data);
 
-                        urlConnection = (HttpsURLConnection)url.openConnection();
+                        // uncomment for tls
+                        //HttpsURLConnection urlConnection = (HttpsURLConnection)url.openConnection();
+                        // comment for tls
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         InputStream in = urlConnection.getInputStream();
                         BufferedReader r = new BufferedReader(new InputStreamReader(in));
 

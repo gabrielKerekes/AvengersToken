@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 
@@ -69,8 +70,8 @@ public class TransService extends AsyncTask<String,Void,String> {
     }
 
     private void login(){
-        HttpsURLConnection urlConnection = null;
-
+        //HttpsURLConnection urlConnection = null;
+        HttpURLConnection urlConnection = null;
         try {
             TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
                 public X509Certificate[] getAcceptedIssuers() {
@@ -90,13 +91,14 @@ public class TransService extends AsyncTask<String,Void,String> {
 
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
+            //HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            //HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
 
-            URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/postLoginDev");
+            //URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/postLoginDev");
+            URL url = new URL(ServiceIp.GetIp(context) + "/postLoginDev");
 
             //read data
-            urlConnection = (HttpsURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "text/plain");
 
@@ -120,8 +122,8 @@ public class TransService extends AsyncTask<String,Void,String> {
     }
 
     private void send(){
-        HttpsURLConnection urlConnection = null;
-
+        //HttpsURLConnection urlConnection = null;
+        HttpURLConnection urlConnection = null;
         try {
             TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
                 public X509Certificate[] getAcceptedIssuers() {
@@ -141,13 +143,13 @@ public class TransService extends AsyncTask<String,Void,String> {
 
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
+            //HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            //HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
 
-            URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/writeTransDev");
-
+            //URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/writeTransDev");
+            URL url = new URL(ServiceIp.GetIp(context) + "/writeTransDev");
             //read data
-            urlConnection = (HttpsURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection)url.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "text/plain");
 
@@ -155,7 +157,7 @@ public class TransService extends AsyncTask<String,Void,String> {
             String msg = String.format("%040x", new BigInteger(1, data.getBytes(/*YOUR_CHARSET?*/)));
             String ocraMsg = ocra.generateOCRA("OCRA-1:HOTP-SHA1-6:QN08", imei, msg);
 
-            data+="="+ocraMsg;
+            data += "=" + ocraMsg;
 
             OutputStream os = urlConnection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));

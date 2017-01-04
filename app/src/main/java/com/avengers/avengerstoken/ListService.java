@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -62,8 +63,8 @@ public class ListService extends AsyncTask<String,Void,List<Item>> {
         Item item;
         String data = "";
 
-        HttpsURLConnection urlConnection = null;
-
+        //HttpsURLConnection urlConnection = null;
+        HttpURLConnection urlConnection = null;
         try {
             TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
                 public X509Certificate[] getAcceptedIssuers() {
@@ -83,16 +84,17 @@ public class ListService extends AsyncTask<String,Void,List<Item>> {
 
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
+            //HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            //HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
 
             SharedPreferences sharedPreferences = context.getSharedPreferences("PREFS",Context.MODE_PRIVATE);
             String uname = sharedPreferences.getString("uname","");
 
-            URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/getTrans?user="+uname);
+            //URL url = new URL("https://147.175.98.16:8443/testRest/rs/service/getTrans?user="+uname);
+            URL url = new URL(ServiceIp.GetIp(context) + "/getTrans?user="+uname);
 
             //read data
-            urlConnection = (HttpsURLConnection)url.openConnection();
+            urlConnection = (HttpURLConnection)url.openConnection();
             InputStream in = urlConnection.getInputStream();
             BufferedReader r = new BufferedReader(new InputStreamReader(in));
 
